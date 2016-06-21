@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+    <link type="text/css" href="materialize.css" rel="stylesheet">
+      <link type="text/css" rel="stylesheet" href="css/materialize.min.css" />
+    <script type="text/javascript" language="JavaScript" src="jquery.js"></script>
+  
+  
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title></title>
+
+    <script>
+        $(function() {
+            $("#sname_errmsg").hide();
+            $("#fname_errmsg").hide();
+            $("#town_errmsg").hide();
+            $("#mname_errmsg").hide();
+
+            var error_username = false;
+            var error_town = false;
+            var error_fname = false;
+            var error_mname = false;
+
+//validate the fileds by calling out the functions
+            $("#form_name").focusout(function () {
+                check_username();
+            });
+
+            $("#form_town").focusout(function () {
+                check_town();
+            });
+
+            $("#form_fathername").focusout(function () {
+                check_fusername();
+            });
+
+            $("#form_mothername").focusout(function () {
+                check_musername();
+            });
+
+//vlalidate the username field by checking for invalid characters
+            function check_username() {
+                var username_length = $("#form_name").val().length;
+                var username = $("#form_name").val();
+
+                if (username_length < 5 || username_length > 20) {
+                    $("#sname_errmsg").html("Should be between 5 and 20 Characters");
+                    $("#sname_errmsg").show();
+                    error_username = true;
+                } else if(!isNaN(username)){
+                    $("#sname_errmsg").html("Please enter a valid Name ");
+                    $("#sname_errmsg").show();
+                    error_username = true;
+                }
+                else {
+                    $("#sname_errmsg").hide();
+                }
+            }
+// validate mothers name
+            function check_musername() {
+                var username_length = $("#form_mothername").val().length;
+                var username = $("#form_mothername").val();
+
+                if (username_length < 5 || username_length > 20) {
+                    $("#mname_errmsg").html("Should be between 5 and 20 Characters");
+                    $("#mname_errmsg").show();
+                    error_username = true;
+                } else if(!isNaN(username)){
+                    $("#mname_errmsg").html("Please enter a valid Name ");
+                    $("#mname_errmsg").show();
+                    error_username = true;
+                }
+                else {
+                    $("#mname_errmsg").hide();
+                }
+            }
+
+
+//validate fathers name
+            function check_fusername() {
+                var username_length = $("#form_fathername").val().length;
+                var username = $("#form_fathername").val();
+
+                if (username_length < 5 || username_length > 20) {
+                    $("#fname_errmsg").html("Should be between 5 and 20 Characters");
+                    $("#fname_errmsg").show();
+                    error_username = true;
+                } else if(!isNaN(username)){
+                    $("#fname_errmsg").html("Please enter a valid Name ");
+                    $("#fname_errmsg").show();
+                    error_username = true;
+                }
+                else {
+                    $("#fname_errmsg").hide();
+                }
+            }
+//validate town name
+            function check_town() {
+                var town_length = $("#form_town").val().length;
+
+                if (town_length < 2 || town_length > 20) {
+                    $("#town_errmsg").html("Please Enter a valid Town Name ");
+                    $("#town_errmsg").show();
+                    error_town = true;
+                } else {
+                    $("#town_errmsg").hide();
+                }
+            }
+
+            //validate the overall form
+            $("#regform").submit(function() {
+
+                error_username = false;
+                error_town = false;
+                error_mname = false;
+                error_fname = false;
+
+                check_username();
+                check_town();
+                check_musername();
+                check_fusername();
+
+                if(error_username == false && error_town == false && error_musername == false && error_fusername== false) {
+                    return true;
+                } else {
+                    return false;
+                }
+
+            });
+        });
+    </script>
+</head>
+<body class="grey lighten-2">
+<!--Import jQuery before materialize.js-->
+      <!--<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script> -->
+      <script type="text/javascript" src="js/materialize.min.js"></script>
+
+ 
+ 
+ <div class="row">
+   
+
+    <!-- form start-->
+    <section class="card col s10 push-s1 pull-s1">
+      <form class="col s12" action="update.php" method="post" enctype="multipart/form-data" id="regform">
+    <h1 id="text-head" class="light-blue-text text-darken-3" align="center">Registeration Form</h1>
+       <div class="row">
+        <div class="input-field col s6">
+          <input placeholder="Name of the student" name="sname" id="form_name" type="text" required="required">
+         <label for="form_name">Name of the Student</label>
+            <span id="sname_errmsg"></span>
+        </div>
+        <div class="input-field col s6">
+          <input type="date" class="datepicker" value="(Date of Birth) dd/mm/yyyy" name="sdob" id="form_dob" title="Date of Birth">
+
+        </div>
+      </div>
+     
+      
+        <!--<input type="date" class="datepicker" placeholder="Date of Birth" name="dob">
+     <script>$('.datepicker').pickadate({
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 15 // Creates a dropdown of 15 years to control year
+  });</script>-->
+
+       <div class="row">
+        <div class="input-field col s6">
+           <input id="form_address1" type="text" class="validate" name="saddress1" placeholder="Address Line 1" required="required" />
+          <label for="form_address1">Address Line 1</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="form_address2" type="text" class="validate" name="saddress2" placeholder="Address Line 2"/>
+          <label for="form_address2">Address Line 2</label>
+        </div>
+      </div>
+      
+      <div class="row">
+	  <div class="input-field col s6">
+          <input id="form_town" type="text" class="validate" name="scity" placeholder="Town/City" required="">
+          <label for="form_town">Town/City</label>
+          <span id="town_errmsg">Test</span>
+        </div>
+
+        <div class="input-field col s6">
+          <select name="sstate" class="validate" required="required">
+            <option value="" disabled selected>Choose your option</option>
+            <option value="tamilnadu">Tamilnadu</option>
+            <option value="other">Other</option>
+          </select>
+          <label>State</label>
+        </div> 
+      </div>
+
+      <div class="row">
+        <div class="input-field col s6">
+          <select name="snationality" class="validate" required="required">
+            <option value="" disabled selected>Choose your option</option>
+            <option value="indian">Indian</option>
+            <option value="nri">NRI</option>
+            <option value="other">Other</option>
+          </select>
+          <label>Nationality</label>
+
+        </div>
+
+        <div class="input-field col s6">
+          <select class="validate" name="sgender" required="required">
+            <option value="" disabled selected>Choose your option</option>
+            <option value="smale">Male</option>
+            <option value="sfemale">Female</option>
+            <option value="sother">Other</option>
+          </select>
+          <label>Gender</label>
+
+
+        </div>
+
+
+      </div>
+
+
+
+
+      <div class="row">
+        <div class="input-field col s6">
+          <select class="validate" id="scomu" name="scommunity" required="required">
+                    <option value="" disabled selected>Choose your option</option>
+					<option value="OC">OC</option>
+                    <option value="BC">BC</option>
+                    <option value="BCM">BCM</option>
+					<option value="MBC">MBC</option>
+					<option value="OBC">OBC</option>
+					<option value="SC/SCB/ST">SC/SCB/ST</option>
+
+                 </select>
+          <label for="scomu">Community</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="form_caste" type="text" class="validate" name="scaste" placeholder="Caste" required="required">
+          <label for="form_caste">Caste</label>
+            <span class="error_form" id="scaste_errmsg"></span>
+        </div>
+      </div>
+
+	  <div class="input-field col s12" >
+          <select class="validate" id="relg" name="sreligion" required="required" onchange= "religions()">
+                    <option value="" disabled selected>Choose your option</option>
+					<option value="Hindu">Hindu</option>
+                    <option value="Muslim">Muslim</option>
+					<option value="Christian">Christian</option>
+					<option value="Others">Others</option>
+                 </select>
+          <label for="relg">Religion</label>
+        </div>
+
+		<script type="text/javascript">
+                function religions()
+                {
+                  val=document.getElementById("relg").value;
+                  if(val=="Others")
+                  {
+                  document.getElementById("relgs").style.display="block";
+                  }    
+					else 
+					{
+					document.getElementById("relgs").style.display="none";
+					}
+                }
+        </script>
+		
+		<div class="row">
+       <div id="relgs" style="display:none">
+          <div class="input-field col s12">
+          <input placeholder="Religion (Other Category)" id="religionother" type="text" class="validate" name="otherreligion"/>
+          <label for="religionother">Religion(Other Category)</label>
+        </div>
+        </div>
+        </div>
+		
+      <div class="row">
+	  <div class="input-field col s6">
+          <input id="form_mobile" type="number" class="validate" name="smobileno" placeholder="Phone number" required="required" maxlength="10">
+          <label for="form_mobile">Student Mobile Number</label>
+          <span class="error_form" id="smobile_errmsg"/></span>
+        </div>
+        <div class="input-field col s6">
+          <input id="form_email" type="email" class="validate" placeholder="Email" name="semailid" required="required">
+          <label for="form_email">Email</label>
+            <span class="error_form" id="semailid_errmsg"/></span>
+        </div>
+        
+      </div>
+
+
+
+      <div class="row">
+        <div class="input-field col s6">
+          <input placeholder="Father name" id="form_fathername" type="text" class="validate" name="fname" required="required">
+          <label for="form_fathername">Father Name</label>
+            <span class="error_from" id="fname_errmsg"/></span>
+        </div>
+        <div class="input-field col s6">
+          <input id="form_mothername" type="text" class="validate" name="mname" placeholder="Mother name" required="required">
+          <label for="form_mothername">Mother Name</label>
+            <span id="mname_errmsg"></span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s6" id="occupat">
+          
+          <select id="occup" onchange = "occups()" name="foccupation">
+            <option value="" disabled selected>Choose your option</option>
+            <option value="State Government">State Govt</option>
+            <option value="State Govt Retd">State Govt Retd</option>
+            <option value="Central Govt">Central Govt</option>
+            <option value="Central Govt Retd">Central Govt Retd</option>
+            <option value="Private">Private</option>
+            <option value="Others">Others</option>
+            
+          </select>
+          <label>Father Occupation</label>
+       </div>
+	   
+       <script type="text/javascript">
+                function occups()
+                {
+                  val=document.getElementById("occup").value;
+                  if(val=="Others")
+                  {
+                  document.getElementById("occups").style.display="block";
+                  }    
+					else 
+					{
+					document.getElementById("occups").style.display="none";
+					}
+                }
+        </script>
+        
+
+      
+
+        <div class="input-field col s6">
+          <input id="form_moccu" type="text"  name="moccupation" placeholder="Mother Occupation" >
+          <label for="form_moccu">Mother Occupation</label>
+        </div>
+      </div>
+	  
+      <div class="row">
+       <div id="occups" style="display:none">
+          <div class="input-field col s12">
+          <input placeholder="Father Occupation (Other Category)" id="form_occupoth" type="text" class="validate" name="foccuothers">
+          <label for="form_occupoth">Father Occupation (Other Category)</label>
+        </div>
+        </div>
+        </div>
+
+      <div class="row">
+        <div class="input-field col s6">
+          <input placeholder="Father Annual Income" id="foccu" type="number"  name="fincome" >
+          <label for="foccu">Father Annual Income</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="moccu" type="number"  name="mincome" placeholder="Mother Annual Income " >
+          <label for="moccu">Mother Annual Income</label>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="input-field col s6">
+          <input placeholder="Father mobile no" id="fmob" type="number"  name="fmobile" length="10">
+          <label for="fmob">Father Mobile No</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="mmobile" type="number"  name="mmobile" placeholder="Mother mobile no" length="10">
+          <label for="mmobile">Mother Mobile No</label>
+        </div>
+      </div>
+	  
+	  <div class="row">
+        <div class="input-field col s6">
+          <input placeholder="Father email id" id="form_femail" type="email"  name="femail" >
+          <label for="form_femail">Father email id</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="form_memail" type="email"  name="memail" placeholder="Mother email id" >
+          <label for="form_memail">Mother email id</label>
+        </div>
+      </div>
+
+       <div id="row">
+    <blockquote class="blue-text">
+	<br>
+        <h3>Academic Info</h3>
+        <br></blockquote>
+       </div>
+
+
+
+          <div class="input-field col s12">
+              <script type="text/javascript">
+                  function showForm()
+                  {
+                      val=document.getElementById("thechoices").value;
+                      if(val=="Lateral")
+                      {
+                          document.getElementById("lateral").style.display="block";
+                          document.getElementById("regular").style.display="none";
+                      }
+                      if(val=="Regular")
+                      {
+                          document.getElementById("regular").style.display="block";
+                          document.getElementById("lateral").style.display="none";
+                      }
+                  }
+              </script>
+              <select id="thechoices" name="coursecategory" onchange = "showForm()" required="">
+                  <option value="" disabled selected>Choose your option</option>
+                  <option value="Lateral">Lateral</option>
+                  <option value="Regular">Regular</option>
+                  <option value="PG">PG</option>
+              </select>
+              <label>Course Category</label>
+
+              <br>
+
+
+          </div>
+
+
+          <div class="row">
+
+              <div id="regular" style="display:none">
+
+
+                  <div class="input-field col s12">
+                      <select id="qchoices" onchange = "showQuota()" name="rquota">
+                          <option value="" disabled selected>Choose your option</option>
+                          <option value="GQ">Government Quota</option>
+                          <option value="MQ">Management Quota</option>
+
+                      </select>
+                      <label>Quota</label>
+
+                  </div>
+
+                  <script type="text/javascript">
+                      function showQuota()
+                      {
+                          val=document.getElementById("qchoices").value;
+                          if(val=="MQ")
+                          {
+                              document.getElementById("tnea").style.display="none";
+                          }
+                          if(val=="GQ")
+                          {
+                              document.getElementById("tnea").style.display="block";
+                          }
+                      }
+                  </script>
+
+
+                  <!--  Regular Government Quota -->
+                  <div id="tnea" style="display:none">
+                      <div class="row">
+                          <div class="input-field col s6">
+                              <select name="squota">
+                                  <option value="" disabled selected>Choose your option</option>
+                                  <option value="BC">BC</option>
+                                  <option value="OC">OC</option>
+                              </select>
+                              <label>Seat Allocated Quota</label>
+                          </div>
+
+                          <div class="input-field col s6">
+                              <select name="twcategory">
+                                  <option value="" disabled selected>Choose your option</option>
+                                  <option value="First Graduate">First Graduate</option>
+                                  <option value="AICTE Fee waiver">AICTE Fee waiver</option>
+                              </select>
+                              <label>Category</label>
+                          </div>
+                      </div>
+
+                      <div class="row">
+                          <div class="input-field col s6">
+                              <input placeholder="" id="tnea" type="number" class="form_addno"  name="twtneaadmissionno" >
+                              <label for="tnea">TNEA Addmission No</label>
+                              <span class="error_form" id="admission_errmsg"></span>
+
+                          </div>
+                          <div class="input-field col s6">
+                              <input placeholder="" id="tneaap" type="number"  name="twtneaapplicationno" >
+                              <label for="tneaap">TNEA Application No</label>
+                              <span class="error_form" id="application_errmsg"></span>
+                          </div>
+                      </div>
+
+                      <div class="row">
+                          <div class="input-field col s6">
+                              <input placeholder="" id="challanno" type="number"  name="twchallanno" >
+                              <label for="challanno">Challan No (Paid during Counselling)</label>
+                              <span class="error_form" id="challanno_errmsg"></span>
+                          </div>
+                          <div class="input-field col s6">
+                              <input type="date" placeholder="Challan Date(dd/mm/yyyy)" class="datepicker" title="challan date">
+                              <span class="error_form" id="date_errmsg"></span>
+                          </div>
+                      </div>
+                  </div>
+                  <!--  End of Regular Government Quota -->
+
+
+
+
+
+                  <div class="row">
+                      <div class="input-field col s6">
+                          <select name="twbranchalloted">
+                              <option value="" disabled selected>Choose your option</option>
+                              <option value="BAE">Aeronautical Engineering</option>
+                              <option value="BAU">Automobile Engineering</option>
+                              <option value="BBT">Biotechnology</option>
+                              <option value="BCE">Civil Engineering</option>
+                              <option value="BCS">Computer Science Engg</option>
+                              <option value="BEE">Electrical and Electronics Engg</option>
+                              <option value="BEC">Electronics Communication Engg</option>
+                              <option value="BEI">Electronics Instrumentation Engg</option>
+                              <option value="BFT">Fashion Technology</option>
+                              <option value="BIT">Information Technology</option>
+                              <option value="BME">Mechanical Engineering</option>
+                              <option value="BMC">Mechatronics Engineering</option>
+                              <option value="BTT">Textile Technology</option>
+                          </select>
+                          <label>Branch Alloted</label>
+                      </div>
+
+                      <div class="input-field col s6">
+                          <input placeholder="Name of the Qualifying Exam" id="qualifyingexam" type="text" class="validate" name="twexamname" required="">
+                          <label for="sch">Name of the Qualifying exam</label>
+                          <span class="error_form" id="qualifying_errmsg"></span>
+                      </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="input-field col s6">
+                          <input placeholder="" id="no" type="number" class="validate" name="twregno" min="0" max="6" required >
+                          <label for="no">+2 Register No</label>
+                          <span class="error_form" id="regno_errmsg"></span>
+                      </div>
+                      <div class="input-field col s6">
+                          <input id="passing" type="text" class="validate" name="twmonthyear" placeholder="mm/yyyy" required>
+                          <label for="passing">Month and Year of Passing </label>
+                          <span class="error_form" id="passing_errmsg"></span>
+                      </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="input-field col s6">
+                          <input placeholder="Name of the School studied" id="sch" type="text" class="validate" name="twschoolname" required>
+                          <label for="sch">School Name</label>
+                          <span class="error_form" id="school_errmsg"></span>
+                      </div>
+                      <div class="input-field col s6">
+                          <input id="scl" type="text" class="validate" name="twschoollocality" placeholder="School Locality" required="">
+                          <label for="scl">School Locality</label>
+                          <span class="error_form" id="location_errmsg"></span>
+                      </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="input-field col s6">
+                          <select id="board" onchange = "stothers()" name="twboard">
+                              <option value="" disabled selected>Choose your option</option>
+                              <option value="Tamil Nadu">Tamil Nadu</option>
+                              <option value="CBSE">CBSE</option>
+                              <option value="Andhra Pradesh">Andhra Pradesh</option>
+                              <option value="Kerala">Kerala</option>
+                              <option value="Karnataka">Karnataka</option>
+                              <option value="Telangana">Telangana</option>
+                              <option value="others">Others</option>
+                          </select>
+                          <label>Board of studies</label>
+                      </div>
+                      <script type="text/javascript">
+                          function stothers()
+                          {
+                              val=document.getElementById("board").value;
+                              if(val=="others")
+                              {
+                                  document.getElementById("boards").style.display="block";
+                              }
+                              else
+                              {
+                                  document.getElementById("boards").style.display="none";
+                              }
+
+                          }
+                      </script>
+
+
+                      <div class="input-field col s6">
+                          <input placeholder="HSC Mark Certificate No" id="schc" type="text" class="validate" name="twmarkcertificatenumber" required>
+                          <label for="schc">HSC Mark Certificate No</label>
+                          <span class="error_form" id="certificaate_errmsg"></span>
+                      </div>
+
+
+
+
+                  </div>
+
+
+
+                  <div id="boards" style="display:none">
+                      <div class="input-field col s12">
+                          <input placeholder="Others" id="others" type="text" class="validate" name="otherboard" required >
+                          <label for="others">Board of Studies (Others Category)</label>
+                          <span class="error_form" id="board_errmsg"></span>
+                      </div>
+                  </div>
+                  <br><br>
+
+                  <div id="row">
+                      <blockquote class="blue-text">
+                          <br>
+                          <h4>Enter your marks </h4>
+                          <br></blockquote>
+                  </div>
+                  <br>
+                  <table class="col s12 striped">
+                      <thead>
+                      <tr>
+                          <th class="col s4">Subject</th>
+                          <th  class="col s4">Maximum Marks</th>
+                          <th  class="col s4">Marks Secured</th>
+                      </tr>
+                      </thead>
+
+                      <tbody>
+                      <tr>
+                          <td class="col s4"><input  placeholder="Physics" type="text" class="input-field validate" name="subject1" required></td>
+                          <td class="col s4"><input placeholder="Maximum Mark" type="number" class="input-field validate" name="tmaxphysicsmark" required></td>
+                          <td class="col s4"><input id="subject1" placeholder="Mark Secured" type="number" class="input-field validate" name="tphysics" required></td>
+                      </tr>
+                      <tr>
+                          <td class="col s4"><input  placeholder="Chemistry" type="text" class="input-field validate" name="subject2" required=""></td>
+                          <td class="col s4"><input placeholder="Maximum Mark" type="number" class="input-field validate" name="tmaxchemistrymark" required></td>
+                          <td class="col s4"><input id="subject2" placeholder="Mark Secured" type="number" class="input-field validate" name="tchemistry" required></td>
+                      </tr>
+                      <tr>
+                          <td class="col s4"><input  placeholder="Maths" type="text" class="input-field validate" name="subject3" required></td>
+                          <td class="col s4"><input placeholder="Maximum Mark" type="number" class="input-field validate" name="tmaxmathsmark" required></td>
+                          <td class="col s4"><input id="subject3" placeholder="Mark Secured" type="number" class="input-field validate" name="tmaths" required></td>
+                      </tr>
+                      </tbody>
+                  </table>
+
+
+
+                  <div class="row">
+                      <div class="input-field col s6">
+                          <input placeholder="Total marks obtained" id="twtotalmarks" type="number" class="validate" name="twtotalmarks" required>
+                          <label for="twtotalmarks">Total Marks Obtained</label>
+                          <span class="error_form" id="total_errmsg"></span>
+                      </div>
+                      <div class="input-field col s6">
+                          <input placeholder="Total Maximum Mark" id="max" type="number" class="validate" name="twmaxmarks" required>
+                          <label for="schc">Total Maximum Marks</label>
+                          <span class="error_form" id="max_errmsg"></span>
+                      </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="input-field col s6">
+                          <input placeholder="Cut off obtained" id="cutoff" type="number" class="validate" name="twcutoff" required >
+                          <label for="cutoff">Cut off</label>
+                          <span class="error_form" id="cutoff_errmsg"></span>
+                      </div>
+                      <div class="input-field col s6">
+                          <input placeholder="Percentage obtained" id="schc" type="number" class="validate" name="twpercent" required>
+                          <label for="schc">Percentage</label>
+                          <span class="error_form" id="percentage_errmsg"></span>        </div>
+                  </div>
+
+
+                  <!-- later end -->
+              </div>
+              <!-- end of lateral -->
+          </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          <center><input type="submit"  name="action">
+
+              </input></center>
+          <br>
+          <br>
+          <br>
+
+
+
+
+          <!-- fields -->
+
+
+
+
+      </form>
+    </section>
+ </div>
+
+<script>
+    $( document ).ready(function() {
+
+        $("#subject1").bind("change paste keyup", function() {
+            calc();
+        });
+        $("#subject2").bind("change paste keyup", function() {
+            calc();
+        });
+        $("#subject3").bind("change paste keyup", function() {
+            calc();
+        });
+
+        function calc()
+        {
+            var subj1=parseInt($("#subject1").val());
+            var subj2=parseInt($("#subject2").val());
+            var subj3=parseInt($("#subject3").val());
+            var cutoff=((subj1+subj2)/4)+((subj3)/2);
+
+            $("#cutoff").val(cutoff);
+
+
+        }
+
+
+    });
+
+
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('select').material_select();
+    });
+</script>
+
+</body>
+</html>
